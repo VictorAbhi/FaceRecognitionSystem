@@ -162,11 +162,6 @@ class Atendee:
                                 font=("verdana", 12, "bold"), fg="white", bg="navyblue")
         take_photo_btn.grid(row=0, column=4, padx=5, pady=10, sticky=W)
 
-        # update photo button
-        update_photo_btn = Button(btn_frame, text="Update Pic", width=9, font=("verdana", 12, "bold"), fg="white",
-                                  bg="navyblue")
-        update_photo_btn.grid(row=0, column=5, padx=5, pady=10, sticky=W)
-
         # ----------------------------------------------------------------------
         # Right Label Frame
         right_frame = LabelFrame(main_frame, bd=2, bg="white", relief=RIDGE, text="Student Details",
@@ -299,13 +294,13 @@ class Atendee:
         content = self.attendee_table.item(cursor_focus)
         data = content["values"]
 
-        self.var_id.set(data[0]),
-        self.var_name.set(data[1]),
-        self.var_gender.set(data[2]),
-        self.var_dob.set(data[3]),
-        self.var_mob.set(data[4]),
-        self.var_address.set(data[5]),
-        self.var_email.set(data[6]),
+        self.var_id.set(data[0])
+        self.var_name.set(data[1])
+        self.var_gender.set(data[2])
+        self.var_dob.set(data[3])
+        self.var_mob.set(data[4])
+        self.var_address.set(data[5])
+        self.var_email.set(data[6])
 
     # ========================================Update Function==========================
     def update_data(self):
@@ -315,7 +310,6 @@ class Atendee:
             messagebox.showerror("Error", "Please Fill All Fields are Required!", parent=self.root)
         else:
             try:
-                # Validate that the DOB is not greater than the current date
                 dob_str = self.var_dob.get()
                 dob_datetime = datetime.strptime(dob_str, '%Y-%m-%d')
                 if dob_datetime > datetime.now():
@@ -417,7 +411,6 @@ class Atendee:
     # =====================This part is related to Opencv Camera part=======================
     # ==================================Generate Data set take image=========================
     def generate_dataset(self):
-        pass
         if self.var_id.get() == "" or self.var_name.get() == ""  or self.var_gender.get() == "" or self.var_dob.get() == "" or self.var_email.get() == "" or self.var_mob.get() == "" or self.var_address.get() == "" :
             messagebox.showerror("Error", "Please Fill All Fields are Required!", parent=self.root)
         else:
@@ -425,12 +418,6 @@ class Atendee:
 
                 conn = sqlite3.connect('face_recognition.db')
                 cursor = conn.cursor()
-                cursor.execute("select * from attendee")
-                result = cursor.fetchall()
-                id = 0
-                for x in result:
-                    id += 1
-
                 cursor.execute(
                     "UPDATE attendee SET name = ?, gender = ?, dob = ?, mobile = ?, address = ?, email = ? WHERE id = ?",
                     (
@@ -440,50 +427,60 @@ class Atendee:
                         self.var_mob.get(),
                         self.var_address.get(),
                         self.var_email.get(),
-                        self.var_id.get() == id+1
+                        self.var_id.get()
                     )
                 )
 
                 conn.commit()
                 self.fetch_data()
-                self.reset_data()
                 conn.close()
 
                 # ====================part of opencv=======================
 
                 face_classifier = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+                clf = cv2.face.LBPHFaceRecognizer_create()
+                clf.read("clf.xml")  # Load pre-trained face recognition model
 
+                # Function to crop face from the image
                 def face_croped(img):
                     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
                     faces = face_classifier.detectMultiScale(gray, 1.3, 5)
-                    # Scaling factor 1.3
-                    # Minimum naber 5
                     for (x, y, w, h) in faces:
-                        face_croped = img[y:y + h, x:x + w]
-                        return face_croped
+                        return img[y:y + h, x:x + w]
+                    return None
 
+                # Start video capture
                 cap = cv2.VideoCapture(0)
                 img_id = 0
                 while True:
                     ret, my_frame = cap.read()
                     if face_croped(my_frame) is not None:
-                        img_id += 1
                         face = cv2.resize(face_croped(my_frame), (200, 200))
                         face = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-                        file_path = "data_img/atendee." + str(id) + "." + str(img_id) + ".jpg"
-                        cv2.imwrite(file_path, face)
-                        cv2.putText(face, str(img_id), (50, 50), cv2.FONT_HERSHEY_COMPLEX, 2, (0, 255, 0), 2)
-                        cv2.imshow("Capture Images", face)
 
-                    if cv2.waitKey(1) == 13 or int(img_id) == 100:
+                        # Check for duplicate face by recognizing using LBPHFaceRecognizer
+                        label, confidence = clf.predict(face)
+                        if confidence > 60:  # Confidence threshold for duplicate detection
+                            cv2.putText(face, "Duplicate Face!", (50, 50), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 0, 255),
+                                        1)
+                            messagebox.showerror("Duplicate Face Detected", f"Confidence: {confidence}")
+                            break  # Stop capture loop if duplicate is detected
+                        else:
+                            img_id += 1
+                            file_path = f"data_img/atendee.{self.var_id.get()}.{img_id}.jpg"
+                            cv2.imwrite(file_path, face)
+                            cv2.putText(face, f"ID: {self.var_id.get()}", (50, 50), cv2.FONT_HERSHEY_COMPLEX, 2,
+                                        (0, 255, 0), 2)
+                            cv2.imshow("Capture Images", face)
+                    if cv2.waitKey(1) == 13 or img_id == 100:
+                        messagebox.showinfo("Result", "Generating dataset completed!", parent=self.root)
                         break
+
                 cap.release()
                 cv2.destroyAllWindows()
-                messagebox.showinfo("Result", "Generating dataset completed!", parent=self.root)
             except Exception as es:
                 messagebox.showerror("Error", f"Due to: {str(es)}", parent=self.root)
 
-    # main class object
 
 
 if __name__ == "__main__":

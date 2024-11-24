@@ -1,6 +1,5 @@
 from tkinter import *
 from tkinter import messagebox
-from PIL import Image, ImageTk
 import sqlite3
 
 from Face_Recognition_System import Face_Recognition_System
