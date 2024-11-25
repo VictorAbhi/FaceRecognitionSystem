@@ -6,9 +6,13 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 from tkinter import messagebox
 from tkcalendar import DateEntry
+from train import Train
 
 import sqlite3
 import cv2
+
+import train
+
 
 class Atendee:
     def __init__(self, root):
@@ -387,6 +391,8 @@ class Atendee:
                     if image_deleted:
                         messagebox.showinfo("Images Deleted", "All associated images have been deleted.",
                                             parent=self.root)
+                        train1 = train.Train(self.root)
+                        train1.train_classifier()
                     else:
                         messagebox.showinfo("No Images Found", "No images were found to delete.", parent=self.root)
 
@@ -460,7 +466,7 @@ class Atendee:
 
                         # Check for duplicate face by recognizing using LBPHFaceRecognizer
                         label, confidence = clf.predict(face)
-                        if confidence > 60:  # Confidence threshold for duplicate detection
+                        if confidence < 50:  # Confidence threshold for duplicate detection
                             cv2.putText(face, "Duplicate Face!", (50, 50), cv2.FONT_HERSHEY_COMPLEX, 0.6, (0, 0, 255),
                                         1)
                             messagebox.showerror("Duplicate Face Detected", f"Confidence: {confidence}")

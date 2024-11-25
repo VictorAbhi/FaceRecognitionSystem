@@ -50,6 +50,10 @@ class AttendanceMarker:
         sheet.append([i, n, current_date, current_time])
         workbook.save(self.excel_file)
 
+        sheet.append([])  # This adds a blank row
+        total_attendees_today = sum(1 for row in sheet.iter_rows(values_only=True) if row[2] == current_date)
+        sheet.append([f"Day Summary for {current_date}", f"Total Attendees: {total_attendees_today}"])
+
         # Show a confirmation dialog after marking attendance
         messagebox.showinfo(
             title=f"Attendance marked for {n} (ID: {i})",

@@ -4,8 +4,6 @@ import os
 import cv2
 import numpy as np
 from tkinter import messagebox
-
-
 class Train:
 
     def __init__(self, root):
