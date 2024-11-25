@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import Tk, simpledialog, Toplevel, Label, Button
 from PIL import Image, ImageTk
 import sqlite3
 import cv2
@@ -96,8 +97,9 @@ class Face_Recognition:
                 if confidence > 77:
                     cv2.putText(img, f"id:{i}", (x, y - 80), cv2.FONT_HERSHEY_COMPLEX, 0.8, (64, 15, 223), 2)
                     cv2.putText(img, f"Name:{n}", (x, y - 55), cv2.FONT_HERSHEY_COMPLEX, 0.8, (64, 15, 223), 2)
-                    attendance = AttendanceMarker()
-                    attendance.mark_attendance(i,n)
+                    attendance = AttendanceMarker(self.root)
+                    attendance.mark_attendance(i,n, videoCap)
+
                 else:
                     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 3)
                     cv2.putText(img, "Unknown Face", (x, y - 5), cv2.FONT_HERSHEY_COMPLEX, 0.8, (255, 255, 0), 3)
@@ -125,6 +127,8 @@ class Face_Recognition:
                 break
         videoCap.release()
         cv2.destroyAllWindows()
+
+
 
 
 if __name__ == "__main__":
