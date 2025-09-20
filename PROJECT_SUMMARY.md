@@ -1,5 +1,5 @@
 # Project Summary
-## Face Recognition Attendance System - Executive Overview
+## Face Recognition Attendance System -  Overview
 
 ---
 
@@ -16,6 +16,7 @@ This project demonstrates practical application of theoretical computer science 
 - **Human-Computer Interaction** (Professional GUI Development)
 
 ---
+
 
 ## **System Architecture Overview**
 
@@ -37,14 +38,14 @@ This project demonstrates practical application of theoretical computer science 
 ## **Key Performance Indicators**
 
 ### **System Metrics**
-- **Recognition Accuracy**: [TO BE FILLED AFTER TESTING]%
+- **Recognition Accuracy**: 87% under stable lighting condition
 - **Processing Speed**: ~30 FPS real-time processing
 - **False Positive Rate**: [TO BE FILLED AFTER TESTING]%
-- **User Registration Time**: <2 minutes per individual
-- **Database Response Time**: <10ms for queries
+- **User Registration Time**: 30 sec per individual
+- **Database Response Time**: 10ms for queries
 
 ### **Scalability Factors**
-- **Maximum Users**: 1000+ attendees (limited by hardware)
+- **Maximum Users**: 10+ attendees (limited by hardware)
 - **Concurrent Recognition**: Single-user real-time processing
 - **Storage Efficiency**: ~2MB per registered user (100 training images)
 - **Memory Usage**: ~200MB during active operation
@@ -114,7 +115,6 @@ This project demonstrates practical application of theoretical computer science 
 - Computer vision algorithm implementation
 - Database design and management
 - Professional GUI development and user experience design
-
 ---
 
 ## 🏆 **Achievements & Outcomes**
