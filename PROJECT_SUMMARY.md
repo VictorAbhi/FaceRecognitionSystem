@@ -143,6 +143,58 @@ This project demonstrates practical application of theoretical computer science 
 - **Documentation**: Comprehensive technical and user documentation
 
 ---
+## Limitations and Future Improvements
+
+### Current Limitations
+
+#### Validation Implementation
+- Validation is not properly implemented across all components  
+- Input sanitization could be more robust  
+- Edge case handling needs improvement  
+
+#### Lighting Accuracy Fluctuations
+- Recognition accuracy varies significantly with lighting conditions (87% under stable lighting)  
+- Performance degrades in low-light or high-contrast environments  
+- No adaptive lighting compensation implemented  
+
+#### Hardware Dependencies
+- Requires consistent camera input quality  
+- Performance limited by CPU processing power  
+- No GPU acceleration implemented  
+
+#### Dataset Limitations
+- Training datasets limited to 100 images per individual  
+- Limited variation in facial expressions and angles  
+- No multi-ethnic representation in training data  
+
+---
+
+### Future Improvements
+
+#### Advanced Validation Framework
+- Implement comprehensive input validation  
+- Add robust error handling and recovery  
+- Unit testing and integration testing framework  
+
+#### Lighting Compensation
+- Implement adaptive histogram equalization  
+- Add infrared or low-light enhancement  
+- Real-time lighting condition detection  
+
+#### Model Enhancements
+- Deep learning-based face recognition (FaceNet, DeepFace)  
+- Multi-model ensemble approach  
+- Transfer learning for improved accuracy  
+
+#### Scalability Features
+- Multi-camera support for larger venues  
+- Cloud-based processing for high volume  
+- Mobile app integration  
+
+#### Security Enhancements
+- Liveness detection to prevent photo spoofing  
+- Multi-factor authentication integration  
+- Encrypted data transmission  
 
 This project represents a comprehensive demonstration of advanced computer science concepts, practical problem-solving abilities, and professional software development skills, making it an excellent showcase for undergraduate-level academic evaluation and career advancement opportunities.
 
