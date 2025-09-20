@@ -56,3 +56,6 @@ scikit-learn==1.3.0
 Administrator Mode: Register new users and generate training datasets
 Attendance Mode: Real-time face recognition and logging
 Report Generation: Export attendance data to Excel format
+
+#### **performance metric**
+Confidence: 87% under stable lighting condition
