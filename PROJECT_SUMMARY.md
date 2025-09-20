@@ -40,7 +40,6 @@ This project demonstrates practical application of theoretical computer science 
 ### **System Metrics**
 - **Recognition Accuracy**: 87% under stable lighting condition
 - **Processing Speed**: ~30 FPS real-time processing
-- **False Positive Rate**: [TO BE FILLED AFTER TESTING]%
 - **User Registration Time**: 30 sec per individual
 - **Database Response Time**: 10ms for queries
 
