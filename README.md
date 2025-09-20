@@ -1,12 +1,3 @@
-### **Procedure to Run the Application**
-
-#### **Setup Instructions**
-1. Clone the Repository (if applicable):
-```
-git clone <repository-url>
-cd face-recognition-attendance-system
-```
-
 ## Face Recognition Attendance System 
 
 ---
@@ -23,6 +14,14 @@ This project demonstrates practical application of theoretical computer science 
 - **Human-Computer Interaction** (Professional GUI Development)
 
 ---
+### **Procedure to Run the Application**
+
+#### **Setup Instructions**
+1. Clone the Repository (if applicable):
+```
+git clone <repository-url>
+cd face-recognition-attendance-system
+```
 2. Create Virtual Environment (Recommended):
 
 ```
